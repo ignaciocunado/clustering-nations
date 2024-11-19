@@ -16,7 +16,7 @@ library(MissMech)
 #_________________
 ## Raw Data import
 ## downloaded from  https://webfs.oecd.org/pisa2018/SPSS_SCH_QQQ.zip
-SCH = read.spss('raw_data_SCH.sav', reencode='utf-8')
+SCH = read.spss('data/schools/raw_data_schools.sav', reencode='utf-8')
 
 sch0 = data.frame('CNT' = SCH[["CNT"]],
                  'CNTSCHID' = SCH[["CNTSCHID"]],
@@ -42,7 +42,7 @@ sch = sch0
 #_____________
 ## Raw Data import
 ## downloaded from https://webfs.oecd.org/pisa2018/SPSS_STU_QQQ.zip
-STU = read.spss('raw_data_STU.sav', reencode='utf-8')
+STU = read.spss('data/students/raw_data_students.sav', reencode='utf-8')
 
 stu0 = data.frame('CNT' = STU[["CNT"]],
                  'CNTSCHID' = STU[["CNTSCHID"]],
@@ -109,7 +109,7 @@ df$Y_BIN_MATH1 = ifelse(df$Y_MATH1 > 10, 1, 0)
 table(df$Y_BIN_MATH1)
 
 # save as a .csv
-write.csv(df,"OECD_data.csv", row.names = FALSE)
+write.csv(df,"/data/csv/OECD_data.csv", row.names = FALSE)
 
 
 
