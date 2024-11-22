@@ -8,6 +8,7 @@ library(ggplot2)
 library(naniar)
 library(finalfit)
 library(MissMech)
+# library(lme4)
 
 
 #_____________________________________________
@@ -109,7 +110,7 @@ df$Y_BIN_MATH1 = ifelse(df$Y_MATH1 > 10, 1, 0)
 table(df$Y_BIN_MATH1)
 
 # save as a .csv
-write.csv(df,"/data/csv/OECD_data.csv", row.names = FALSE)
+write.csv(df,"data/csv/OECD_data.csv", row.names = FALSE)
 
 
 
