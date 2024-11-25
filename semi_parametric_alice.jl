@@ -73,6 +73,5 @@ end
 # Sampling
 chain = sample(dirichlet_process_model(grouped_X, grouped_Y, grouped_S, α, μ0, σ0, σβ), SMC(), 100)
 
-chain
 # Plot results
 plot(chain)

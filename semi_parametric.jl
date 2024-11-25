@@ -31,7 +31,6 @@ n_i = combine(groupby(X, :CNT), nrow => :NumSchools)[:, 2]
     mu_0 = 0
     sigma_0 = 10.0
     M = 2.0
-    alpha_d = 1.0  # Concentration parameter for DP
     K = 20  # Truncation level for stick-breaking process
 
     β ~ MvNormal(zeros(size(x, 2) - 1), sigma_b ^ 2 * I)
@@ -39,7 +38,7 @@ n_i = combine(groupby(X, :CNT), nrow => :NumSchools)[:, 2]
     # Stick-breaking process
     v = Vector{Real}(undef, K)
     for k in 1:K
-        v[k] ~ Beta()
+        v[k] ~ Beta(1, M)
     end
     
     # Calculate stick-breaking weights

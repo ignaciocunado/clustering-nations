@@ -38,7 +38,6 @@ n_i = combine(groupby(X, :CNT), nrow => :NumSchools)[:, 2]
     β ~ MvNormal(zeros(p), σ_β^2 * I)
     
     # Create Dirichlet Process
-    dp = DirichletProcess(M)
     G0 = Normal(μ0, σ0^2)
     
     # Initialize cluster assignments and effects
@@ -68,7 +67,7 @@ n_i = combine(groupby(X, :CNT), nrow => :NumSchools)[:, 2]
         
         # If a new cluster is selected (i.e., z[i] > K), initialize a new cluster effect
         if z[i] > K
-            push!(c, 0.0)  # New cluster effect
+            push!(c, rand(G0))  # New cluster effect
         end
         
         # Likelihood for schools in country i
