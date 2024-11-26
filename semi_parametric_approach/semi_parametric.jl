@@ -4,7 +4,8 @@ using StatsPlots
 using DataFrames
 using CSV
 using LinearAlgebra
-# using Turing.RandomMeasures;
+using RCall
+
 
 # Declare data path and import CSV into new DataFrame
 path = "data/csv/OECD_data.csv"
@@ -13,24 +14,24 @@ df.PRIVATESCH = map(x -> x == "private" ? 1 : 0, df.PRIVATESCH)
 
 
 # Using Y_MATH1_rate as out Ys and the rest as covariates
-X = df[:, 2:9]
+X = df[:, vcat(2:6, 8:9)]
 Y = df[:, [2,11]]
 grouped_X = groupby(X, :CNT) # Access school t in country i via grouped_X[i][t, :]
 grouped_Y = groupby(Y, :CNT)
 
 # Find some of the required data
-n = length(Set(X[:, 2]))
+n = length(Set(X[:, 1]))
 n_i = combine(groupby(X, :CNT), nrow => :NumSchools)[:, 2]
 
 
 # Declare the model
-@model function semi_parametric_approach(x, y, n_i, grouped_X, grouped_Y)
+@model function semi_parametric_approach(x, y, n_i, n, grouped_X, grouped_Y)
 
     # Hyperparameters
-    sigma_b = 10.0
+    sigma_b = 1.0
     mu_0 = 0
-    sigma_0 = 10.0
-    M = 2.0
+    sigma_0 = 1.0
+    M = 1.0
     K = 20  # Truncation level for stick-breaking process
 
     β ~ MvNormal(zeros(size(x, 2) - 1), sigma_b ^ 2 * I)
@@ -53,7 +54,7 @@ n_i = combine(groupby(X, :CNT), nrow => :NumSchools)[:, 2]
     # Cluster parameters
     μ = Vector{Real}(undef, K)
     for k in 1:K
-        μ[k] ~ Normal(mu_0, sigma_0)
+        μ[k] ~ Normal(mu_0, sigma_0 ^ 2)
     end
 
     # Declare z_i as a vector of categorical variables (one per country)
@@ -72,6 +73,21 @@ n_i = combine(groupby(X, :CNT), nrow => :NumSchools)[:, 2]
 end
 
 
-chain = sample(semi_parametric_approach(X, Y, n_i, grouped_X, grouped_Y), SMC(), 1000)
+chain = sample(semi_parametric_approach(X, Y, n_i, n, grouped_X, grouped_Y), SMC(), 3000, discard=1000)
 
+pyplot()
 plot(chain)
+savefig("semi_parametric_approach/chains.png")
+
+chain_df = DataFrame(chain)
+
+clus_d = chain_df[:, Cols(r"z_i")]
+clus_d_int = mapcols(col -> Int.(col), clus_d)
+clus = Matrix(clus_d_int)
+
+@rput clus
+R"library(salso)"
+R"bestclust = salso(clus, loss=binder())"
+@rget bestclust
+
+CSV.write("data/clusters/clusters.csv", DataFrame(country = group_names = [key.CNT for key in keys(grouped_X)], cluster = bestclust))
