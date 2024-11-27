@@ -1,28 +1,28 @@
 country,cluster
 Albania,1
 Baku (Azerbaijan),1
-Argentina,2
+Argentina,1
 Australia,1
-Brazil,3
-Brunei Darussalam,1
-Chile,1
-Chinese Taipei,1
+Brazil,1
+Brunei Darussalam,2
+Chile,3
+Chinese Taipei,4
 Colombia,1
 Costa Rica,1
 Denmark,1
-Dominican Republic,4
+Dominican Republic,5
 Estonia,1
-France,4
-Georgia,5
-Greece,1
+France,1
+Georgia,1
+Greece,6
 Indonesia,1
 Italy,1
 Kazakhstan,1
 Jordan,1
 Lebanon,1
-Lithuania,6
+Lithuania,1
 Mexico,1
-Moldova,7
+Moldova,1
 Morocco,1
 Panama,1
 Peru,1
@@ -34,10 +34,10 @@ Saudi Arabia,1
 Slovak Republic,1
 Spain,1
 Sweden,1
-Switzerland,7
+Switzerland,1
 Thailand,1
-United Arab Emirates,1
-Turkey,4
-United States,5
-Uruguay,1
-B-S-J-Z (China),8
+United Arab Emirates,2
+Turkey,1
+United States,1
+Uruguay,3
+B-S-J-Z (China),1

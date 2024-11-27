@@ -1,3 +1,7 @@
 # Data Directories
 /data/schools
 /data/students
+
+.vscode/
+
+.DS_STORE
