@@ -28,11 +28,11 @@ n_i = combine(groupby(X, :CNT), nrow => :NumSchools)[:, 2]
 @model function semi_parametric_approach(x, y, n_i, n, grouped_X, grouped_Y)
 
     # Hyperparameters
-    sigma_b = 2.0
+    sigma_b = 1.0
     mu_0 = 0
     sigma_0 = 2.0
-    M = 5.0
-    K = 20  # Truncation level for stick-breaking process
+    M = 2.0
+    K = 15  # Truncation level for stick-breaking process
 
     β ~ MvNormal(zeros(size(x, 2) - 1), sigma_b ^ 2 * I)
     
@@ -73,7 +73,7 @@ n_i = combine(groupby(X, :CNT), nrow => :NumSchools)[:, 2]
 end
 
 
-chain = sample(semi_parametric_approach(X, Y, n_i, n, grouped_X, grouped_Y), SMC(), 3000, discard=1000)
+chain = sample(semi_parametric_approach(X, Y, n_i, n, grouped_X, grouped_Y), SMC(), 10000, discard=4000)
 
 pyplot()
 plot(chain)
