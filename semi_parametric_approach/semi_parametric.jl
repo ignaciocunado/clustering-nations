@@ -15,7 +15,7 @@ df.PRIVATESCH = map(x -> x == "private" ? 1 : 0, df.PRIVATESCH)
 
 # Using Y_MATH1_rate as out Ys and the rest as covariates
 X = df[:, vcat(2:6, 8:9)]
-Y = df[:, [2,11]]
+Y = df[:, [2,10]]
 grouped_X = groupby(X, :CNT) # Access school t in country i via grouped_X[i][t, :]
 grouped_Y = groupby(Y, :CNT)
 
@@ -28,10 +28,10 @@ n_i = combine(groupby(X, :CNT), nrow => :NumSchools)[:, 2]
 @model function semi_parametric_approach(x, y, n_i, n, grouped_X, grouped_Y)
 
     # Hyperparameters
-    sigma_b = 2.0
+    sigma_b = 5.0
     mu_0 = 0
-    sigma_0 = 2.0
-    M = 2.0
+    sigma_0 = 5.0
+    M = 1.0
     K = 20  # Truncation level for stick-breaking process
 
     β ~ MvNormal(zeros(size(x, 2) - 1), sigma_b ^ 2 * I)
@@ -67,7 +67,7 @@ n_i = combine(groupby(X, :CNT), nrow => :NumSchools)[:, 2]
         
         for t in 1:n_i[i]
             λ = exp(dot(Array(grouped_X[i][t, Not(:CNT)]), β) + μ[z_i[i]] + log(grouped_X[i][t, :SCH_TESTED]))
-            grouped_Y[i][t, :Y_MATH1_rate] ~ Poisson(λ)
+            grouped_Y[i][t, :Y_MATH1] ~ Poisson(λ)
         end
     end
 end
