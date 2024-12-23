@@ -31,19 +31,19 @@ n_i = combine(groupby(X, :CNT), nrow => :NumSchools)[:, 2]
     sigma_b = 5.0
     mu_0 = 0
     sigma_0 = 5.0
-    M = 1.0
+    M = 3.0
     K = 20  # Truncation level for stick-breaking process
 
     β ~ MvNormal(zeros(size(x, 2) - 1), sigma_b ^ 2 * I)
     
     # Stick-breaking process
-    v = Vector{Real}(undef, K)
+    v = Vector{Float64}(undef, K)
     for k in 1:K
         v[k] ~ Beta(1, M)
     end
     
     # Calculate stick-breaking weights
-    w = Vector{Real}(undef, K)
+    w = Vector{Float64}(undef, K)
     w[1] = v[1]
     for k in 2:K
         w[k] = v[k] * prod(1 .- v[1:k-1])
@@ -52,9 +52,9 @@ n_i = combine(groupby(X, :CNT), nrow => :NumSchools)[:, 2]
     w /= sum(w)
     
     # Cluster parameters
-    μ = Vector{Real}(undef, K)
+    μ = Vector{Float64}(undef, K)
     for k in 1:K
-        μ[k] ~ Normal(mu_0, sigma_0 ^ 2)
+        μ[k] ~ Normal(mu_0, sigma_0)
     end
 
     # Declare z_i as a vector of categorical variables (one per country)
@@ -77,7 +77,7 @@ chain = sample(semi_parametric_approach(X, Y, n_i, n, grouped_X, grouped_Y), SMC
 
 pyplot()
 plot(chain)
-savefig("semi_parametric_approach/chains.png")
+savefig("semi_parametric_approach/chains_poisson.png")
 
 chain_df = DataFrame(chain)
 
@@ -87,7 +87,7 @@ clus = Matrix(clus_d_int)
 
 @rput clus
 R"library(salso)"
-R"bestclust = salso(clus, loss=binder())"
+R"bestclust = salso(clus, loss=VI())"
 @rget bestclust
 
-CSV.write("data/clusters/clusters.csv", DataFrame(country = group_names = [key.CNT for key in keys(grouped_X)], cluster = bestclust))
+CSV.write("data/clusters/clusters_poisson.csv", DataFrame(country = group_names = [key.CNT for key in keys(grouped_X)], cluster = bestclust))
