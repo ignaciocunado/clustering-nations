@@ -10,7 +10,15 @@ Two main approaches have been considered:
 
 ### 1. Bayesian Semiparametric Approach
 
-$$\begin{aligned}y_{it} \mid \beta, b_i &\stackrel{\text{ind}}{\sim} \mathcal{P}(\exp(X_{it}^T\beta + b_i + \log(T_{it}))), \\\beta &\sim \mathcal{N}_p(0, \sigma_\beta^2 I_p), \\b_i \mid G &\stackrel{\text{iid}}{\sim} G, \\G &\sim DP(M, G_0), \\G_0 &\sim \mathcal{N}(\mu_0, \sigma_0^2)\end{aligned}$$
+**Model**
+```math
+\begin{aligned}
+y_{it} \mid \lambda_{it}&\stackrel{\text{ind}}{\sim} \mathcal{P}(\exp(X_{it}^T\beta + c_i + \log(T_{it})))\quad& i=1,\dots,n;\space t=1,\dots,n_i \\
+\beta &\sim \mathcal{N}_p(0, \sigma_\beta^2 I_p), \\c_i \mid G &\stackrel{\text{iid}}{\sim} G & i=1,\dots,n\\
+G &\sim DP(M, G_0)\\
+G_0 &\sim \mathcal{N}(\mu_0, \sigma_0^2)
+\end{aligned}
+```
 
 
 Where:
