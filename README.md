@@ -1,6 +1,8 @@
 # Clustering Nations by Educational Performance  
 
-> **Reference**: The second model for this project draws heavily on the concepts described in Rodriguez et al. (2008) on _The Nested Dirichlet Process_. We would also like to thank Alessandro Carminati and Alessandra Ragni for their help and guidance.
+> **Reference**: The second model for this project draws heavily on the concepts described in Rodriguez et al. (2008) on _The Nested Dirichlet Process_.
+>
+> We would also like to thank Alessandro Carminati and Alessandra Ragni for their help and guidance.
 ---
 
 ## Table of Contents  
