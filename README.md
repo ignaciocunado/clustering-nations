@@ -9,8 +9,9 @@
 
 1. [**Overview**](#1-overview)  
 2. [**Bayesian Semiparametric Approach**](#2-bayesian-semiparametric-approach)  
-3. [**Nested Dirichlet Process**](#3-nested-dirichlet-process)  
-4. [**Julia Setup**](#4-julia-setup)  
+3. [**Nested Dirichlet Process**](#3-nested-dirichlet-process)
+4. [**Other Files**](#4-other-files)
+5. [**Julia Setup**](#5-julia-setup)  
     - [Installing Julia on macOS](#installing-julia-on-macos)  
     - [Installing Julia on Windows](#installing-julia-on-windows)  
     - [Installing Julia on Linux](#installing-julia-on-linux)  
@@ -49,7 +50,7 @@ Where:
 - $b_i$: Clustering component from the Dirichlet process, shared by subjects in the same cluster
 
 **Results**
-![Clustering results from the first model](semi_parametric_approach/map.png)
+![Clustering results from the first model](semi_parametric_approach/map_2.png)
 
 
 ---
@@ -69,9 +70,20 @@ Where:
 ```
 Where ${\theta_{ji}} = (\mu_{ji}, \sigma^2_{ji})$.
 
+**Results**
+![Clustering results from the second model](nested_dirichlet/map.png)
+
 ---
 
-## 4. Julia Setup  
+## 4. Other files
+
+The file `create_sorted_map.R` generates a world map where different clusters are represented using a gradient of colors. A greener color indicates higher educational performance.
+
+In contrast, `map.ipynb` is a simplified version of the previous file. Instead of using a gradient, it assigns the same color to all countries within the same cluster.
+
+---
+
+## 5. Julia Setup  
 
 ### Installing Julia on macOS  
 
