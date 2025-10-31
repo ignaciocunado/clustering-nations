@@ -32,16 +32,16 @@ Two primary approaches are considered:
 Contributed to:
 ```bibtex
 @InProceedings{10.1007/978-3-031-96303-2_58,
-author="Carminati, Alessandro and Guglielmi, Alessandra and Ragni, Alessandra",
-editor="di Bella, Enrico and Gioia, Vincenzo and Lagazio, Corrado and Zaccarin, Susanna",
-title="Bayesian Nonparametric Clustering of Schools and Countries Based on Mathematics Proficiency",
-booktitle="Statistics for Innovation II",
-year="2025",
-publisher="Springer Nature Switzerland",
-address="Cham",
-pages="356--361",
-abstract="Analyzing educational performance across countries is essential for understanding the strengths and weaknesses of different school systems, ultimately leading to their improvement. In this paper, we analyze data from the Programme for International Student Assessment's 2018 survey to cluster countries and schools based on students' mathematical proficiency within schools. We adopt a Bayesian nonparametric model-based clustering approach, specifically the nested Dirichlet process mixture model, which allows for incorporating school-specific covariates and clustering at both the school and country levels. Our findings reveal patterns in educational outcomes that can inform targeted policy interventions.",
-isbn="978-3-031-96303-2"
+    author="Carminati, Alessandro and Guglielmi, Alessandra and Ragni, Alessandra",
+    editor="di Bella, Enrico and Gioia, Vincenzo and Lagazio, Corrado and Zaccarin, Susanna",
+    title="Bayesian Nonparametric Clustering of Schools and Countries Based on Mathematics Proficiency",
+    booktitle="Statistics for Innovation II",
+    year="2025",
+    publisher="Springer Nature Switzerland",
+    address="Cham",
+    pages="356--361",
+    abstract="Analyzing educational performance across countries is essential for understanding the strengths and weaknesses of different school systems, ultimately leading to their improvement. In this paper, we analyze data from the Programme for International Student Assessment's 2018 survey to cluster countries and schools based on students' mathematical proficiency within schools. We adopt a Bayesian nonparametric model-based clustering approach, specifically the nested Dirichlet process mixture model, which allows for incorporating school-specific covariates and clustering at both the school and country levels. Our findings reveal patterns in educational outcomes that can inform targeted policy interventions.",
+    isbn="978-3-031-96303-2"
 }
 ```
 
